@@ -4,56 +4,75 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
-        
-        <title>homepage</title>
+        <title>Pokemon Battle</title>
     </head> 
     <body>
         <header>
             <nav>
                 <ul>
                     <li>
+                        <!-- Simple reset -->
                         <a href="index.html">Home</a>
                     </li>
                 </ul>    
         </header>
         <main>
+
             <section>
+                 <!-- First screen ( Intro ) -->
                 <section id="intro">
-                    <h1>Pokemon Fighter</h1>
+                    <img src="assets/logo.png" alt="Pokemon logo">
+                    <p>Fighter</p>
                     <button id="start">Let's start</button>
                 </section>
+                <!-- Second screen ( Select your pokemon ) -->
                 <div id="selectPokemon">
-                    <figure><img id="pikachuButton" src="assets/pikachuFront.png"><figcaption>Pikachu</figcaption></figure>
-                    <figure><img id="charmanderButton" src="assets/charmanderFront.png"><figcaption>Charmander</figcaption></figure>
-                    <figure><img id="gengarButton" src="assets/gengarFront.png"><figcaption>Gengar</figcaption></figure>
+                    <figure><img class="pokemons" id="corviknightButton" alt="corviknight" src="./assets/corviknightFront.gif"><figcaption>Corviknight</figcaption></figure>
                 </div>
             </section>
+
+            <!-- Third screen ( Fight )-->
             <div id="battle">
+
                 <img id="heroImage" src="">
+
+                <!-- Info about user pokemon -->
                 <section id="heroInfo">
-                    <h2 id="heroName"></h2>
+                    <p id="heroName"></p>
                     <p>HP</p>
                     <div id="heroHpContainer">
                         <div id="heroHpBar">
                         </div>
                     </div>
                 </section>
-                <div id="heroAttacks">
-                    <button class="attacksHero" id="attackOne"></button>
-                    <button class="attacksHero" id="attackTwo"></button>
-                    <button class="attacksHero" id="attackThree"></button>
-                    <button class="attacksHero" id="attackFour"></button>
-                </div>
+
+                <!-- The battle interface where user interacts -->
+                <div id="battleUi">
+                     <!-- Interactive text -->
+                    <p id="battleText"></p>
+                     <!-- Overview of user attacks-->
+                    <div id="heroAttacks">
+                        <button class="attacksHero" value="0" id="attackOne"></button>
+                        <button class="attacksHero" value="1" id="attackTwo"></button>
+                        <button class="attacksHero" value="2" id="attackThree"></button>
+                        <button class="attacksHero" value="3" id="attackFour"></button>
+                    </div>
+                </div>   
+
+                <!-- Info about enemy pokemon -->
                 <section id="enemyInfo">
-                    <h2 id="enemyName"></h2>
+                    <p id="enemyName"></p>
                     <p>HP</p>
                     <div id="enemyHpContainer">
                         <div id="enemyHpBar">
                         </div>
                     </div>
                 </section>
+
                 <img id="enemyImage" src="">  
+
             </div> 
+           
         </main>
         <footer>
         </footer>
