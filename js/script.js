@@ -48,10 +48,10 @@ var corviknight = new Pokemon  (
     "corviknight", "./assets/corviknightFront.gif", "./assets/corviknightBack.gif", 100,
         [
             /* Corviknights moves, Max and min number ( randomNum() function ) */
-            ["Brave bird", 60, 10],
+            ["Brave bird", 60, 5],
             ["Body Press", 40, 12],
             ["Roost", 30, 5],
-            ["Tackle", 20, 15]
+            ["Tackle", 30, 25]
         ]
 );
 
@@ -60,10 +60,10 @@ var corviknight = new Pokemon  (
 var darkrai = new Pokemon (
     "darkrai", "./assets/darkraiFront.gif", "./assets/darkraiBack.gif", 100,
         [
-            ["Shadow ball", 50, 10],
-            ["Dream barrage", 40, 5],
-            ["Potion", 50, 10],
-            ["Shadow meteor", 40, 22]
+            ["Shadow ball", 60, 5],
+            ["Dream barrage", 50, 5],
+            ["Potion", 40, 10],
+            ["Shadow meteor", 50, 10]
         ]
 ); 
 
@@ -160,13 +160,13 @@ function heroDamageStep(heroDamage, moveName, attackNumber){
 
         /* A message showing that you used this move, and the amount you healed for. On a timeout. */
         setTimeout(function(){
-            battleText.innerHTML = corviknight.name + " heals for " + heroDamage + " Hp!"  ;
+            battleText.innerText = corviknight.name + " heals for " + heroDamage + " Hp!"  ;
 
-        }, 2000);
+        }, 1000);
     }
 
     battleText.style.display = "block";
-    battleText.innerHTML = corviknight.name + " uses " + moveName + "!";
+    battleText.innerText = corviknight.name + " uses " + moveName + "!";
    
    
     if ( heroDamage > 50 ){
@@ -174,30 +174,41 @@ function heroDamageStep(heroDamage, moveName, attackNumber){
 
         /* Timeout so user doesn't get overwhelmed */
         setTimeout(function(){
-            battleText.innerHTML = "Critical hit!";
-        }, 1000);
+            battleText.innerText = "Critical hit!";
+        }, 2000);
     } else if (heroDamage < 20){
     /* If hero deals less than 20 damage */
 
          /* Timeout so user doesn't get overwhelmed */
          setTimeout(function(){
-            battleText.innerHTML = "It wasn't very effective";
-        }, 1000);
+            battleText.innerText = "It wasn't very effective";
+        }, 2000);
     }
 
-    /* If enemy hp gets below 40 */
+    
     if ( darkrai.hp <= 40 ) {
+        /* If enemy hp gets below 40 */
 
         /* Change background color of hp bar */
         enemyHp.style.background = "#ff8d14";
 
-    } else if ( darkrai.hp <= 10 ) {
-      /* If enemy hp gets below 10 */ 
+    } 
 
+    if ( darkrai.hp <= 10 ) {
+        /* If enemy hp gets below 10 */ 
+      
         /* Change background color of hp bar */
         enemyHp.style.background = "#730707";
     }
 
+    /* Duration for the attack animation */
+    setTimeout(function(){
+        /* Styling animation of hero pokemon */
+
+        heroImg.style.width = "326px";
+        heroImg.style.bottom = "14%";
+        heroImg.style.left = "6%";
+    }, 1500);
 
     /* Delay timeout, give user time to breath */
     setTimeout(function(){
@@ -226,17 +237,12 @@ function heroDamageStep(heroDamage, moveName, attackNumber){
                 }, 3000);
             }, 2000);
         } else { 
-
-            /* reverts animation */
-            heroImg.style.width = "326px";
-            heroImg.style.bottom = "14%";
-            heroImg.style.left = "6%";
-            
+  
             /* Run enemyBattleStep function */
             enemyBattleStep()
             
         }
-    }, 1500);
+    }, 4000);
 }
 
 
@@ -260,7 +266,8 @@ function enemyBattleStep(){
         /* if attack equals 0 - 3  */
         if (enemyAttackNumber == 0 || enemyAttackNumber == 1 || enemyAttackNumber == 3) {
             
-            var enemyDamage = randomNum(darkrai.moves[enemyAttackNumber][1], darkrai.hp, darkrai.moves[enemyAttackNumber][1]);
+            var enemyDamage = randomNum(darkrai.moves[enemyAttackNumber][1], darkrai.moves[enemyAttackNumber][2]);
+            console.log(enemyDamage)
             /* Hero hp minus Max / Min of attack */
             var updatedHeroHp = corviknight.hp - enemyDamage;
 
@@ -273,7 +280,8 @@ function enemyBattleStep(){
 
         } else if (enemyAttackNumber == 2) {
 
-            var enemyDamage = randomNum(darkrai.moves[2][1], darkrai.hp, darkrai.moves[2][1]);
+            var enemyDamage = randomNum(darkrai.moves[2][1],  darkrai.moves[2][2]);
+            console.log(enemyDamage)
             var updatedEnemyHp = darkrai.hp + enemyDamage;
 
             darkrai.hp = updatedEnemyHp;
@@ -283,25 +291,34 @@ function enemyBattleStep(){
             enemyImg.style.top = "2%";      
 
             setTimeout(function(){
-                battleText.innerHTML = darkrai.name + " heals for " + enemyDamage + " Hp!"  ;
+                battleText.innerText = darkrai.name + " heals for " + enemyDamage + " Hp!"  ;
             }, 1000);
         } 
 
         if ( enemyDamage > 50 ){
             /* If enemy does over 50 damage */ 
                 setTimeout(function(){
-                    battleText.innerHTML = "Critical hit!";
+                    battleText.innerText = "Critical hit!";
 
-                }, 1000);
+                }, 2000);
         } else if ( enemyDamage < 20 ){
             /* If enemy does lower than 20 damage */ 
 
             setTimeout(function(){
-                battleText.innerHTML = "It wasn't very effective..";
+                battleText.innerText = "It wasn't very effective..";
 
-            }, 1000);
+            }, 2000);
         }   
 
+        /* Duration for the attack animation */
+        setTimeout(function(){
+            /* Styling animation of enemy pokemon */
+
+            enemyImg.style.top = "6%";
+            enemyImg.style.right = "6%";
+            enemyImg.style.width = "178px";
+
+        }, 1000);
 
         if ( corviknight.hp <= 40 ) {
             /* If hero hp gets below 40 */ 
@@ -309,7 +326,9 @@ function enemyBattleStep(){
             /* Change background color of hp bar */
             heroHp.style.background = "#ff8d14";
     
-        } else if ( corviknight.hp <= 10 ) {
+        } 
+        
+        if ( corviknight.hp <= 10 ) {
           /* If hero hp gets below 10 */ 
     
             /* Change background color of hp bar */
@@ -347,17 +366,15 @@ function enemyBattleStep(){
         }
         else {
             setTimeout(function(){
-                /* Styling animation of enemy pokemon */
-                enemyImg.style.top = "6%";
-                enemyImg.style.right = "6%";
-                enemyImg.style.width = "178px";
+                
+                /* Precaution so user is unable to spam attacks */
                 battleText.style.display = "none";
 
                 /* Displays the overview of Hero attacks */
                 heroAttacks.style.display = 'flex';   
-            }, 1500); 
+            }, 3000); 
         }
-    }, 3000);
+    }, 1500);
      
 }
 
